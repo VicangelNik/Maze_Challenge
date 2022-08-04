@@ -17,10 +17,10 @@ public class MazePosition {
     @Setter
     private boolean isAccessed = false;
     private int numberOfPasses = 0;
-    private String position;
+    private String matrixLocation;
 
-    public MazePosition(final char character, final String position) {
-        this.position = position;
+    public MazePosition(final char character, final String matrixLocation) {
+        this.matrixLocation = matrixLocation;
         String value = String.valueOf(character);
         if (MazeCharsEnum.UNDERSCORE.getValue().equalsIgnoreCase(value)) {
             // nothing to do
@@ -42,6 +42,4 @@ public class MazePosition {
     public void increaseNumberOfPasses() {
         numberOfPasses++;
     }
-
-
 }

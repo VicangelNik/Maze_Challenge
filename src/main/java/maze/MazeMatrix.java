@@ -13,9 +13,9 @@ public class MazeMatrix {
 
     private final List<MazePosition> mazePositionList;
 
-    public Optional<MazePosition> getMazePosition(String position) {
+    public Optional<MazePosition> getMazePosition(final String matrixLocation) {
         return mazePositionList.stream()
-                               .filter(mazePosition -> mazePosition.getPosition().equals(position))
+                               .filter(mazePosition -> mazePosition.getMatrixLocation().equals(matrixLocation))
                                .findFirst();
     }
 

@@ -1,7 +1,6 @@
 package maze;
 
 import lombok.RequiredArgsConstructor;
-import maze.MazePosition;
 
 import java.io.*;
 import java.util.LinkedList;
@@ -35,7 +34,7 @@ public class MazeInputReader {
         }
     }
 
-    private void checkMatrixSize(List<MazePosition> matrix) {
+    private void checkMatrixSize(final List<MazePosition> matrix) {
         if (matrix.size() < 2) {
             throw new IllegalArgumentException("Invalid matrix size: " + matrix.size());
         }

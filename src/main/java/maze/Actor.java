@@ -21,7 +21,7 @@ public class Actor {
     @Getter
     private boolean isGoalFound = false;
 
-    public Actor(MazeMatrix mazeMatrix) {
+    public Actor(final MazeMatrix mazeMatrix) {
         this.mazeMatrix = mazeMatrix;
         currentPosition = mazeMatrix.getStartingPosition();
     }
@@ -32,13 +32,20 @@ public class Actor {
         currentPosition.setAccessed(true);
         passedPositionsList.add(currentPosition);
         currentPosition.increaseNumberOfPasses();
-        if (currentPosition.isGoal())
-        {
+        if (currentPosition.isGoal()) {
             isGoalFound = true;
         }
     }
 
-    private MazePosition moveLogic(List<MazePosition> possibleMoveList) {
+    /**
+     * This method contains actor's move logic. The logic is that 1) actor can not move in a blocking position.
+     * 2) actor marks the positions that passes as accessed, thus actor remembers. At first searches and moves to a position that did not pass before.
+     * However, if he has passed by all the available positions. He selects randomly his next move.
+     *
+     * @param possibleMoveList
+     * @return mazeposition decision
+     */
+    private MazePosition moveLogic(final List<MazePosition> possibleMoveList) {
         List<MazePosition> possibleNonBlockPositionList = possibleMoveList.stream()
                                                                           .filter(pos -> !pos.isBlock())
                                                                           .collect(Collectors.toList());
@@ -52,9 +59,15 @@ public class Actor {
                 () -> possibleNonBlockPositionList.get(random.nextInt(possibleNonBlockPositionList.size())));
     }
 
+    /**
+     * Method inspects all possible moves from actor's current position and returns the maze positions (east, west, north south).
+     * There is a chance that a possible move is out of matrix boundaries. Of-course it is not considered a possible move.
+     *
+     * @return List<MazePosition>
+     */
     private List<MazePosition> inspectPossibleMoves() {
         List<MazePosition> possibleMoveList = new ArrayList<>();
-        int positionNumber = Integer.parseInt(currentPosition.getPosition());
+        int positionNumber = Integer.parseInt(currentPosition.getMatrixLocation());
         Optional<MazePosition> eastPosition = mazeMatrix.getMazePosition(String.valueOf(positionNumber + 1));
         Optional<MazePosition> westPosition = mazeMatrix.getMazePosition(String.valueOf(positionNumber - 1));
         Optional<MazePosition> southPosition = mazeMatrix.getMazePosition(String.valueOf(positionNumber + 10));
