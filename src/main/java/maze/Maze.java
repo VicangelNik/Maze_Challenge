@@ -9,13 +9,13 @@ import java.util.Optional;
  * @author Nikiforos Xylogiannopoulos
  */
 @RequiredArgsConstructor
-public class MazeMatrix {
+public class Maze {
 
     private final List<MazePosition> mazePositionList;
 
     public Optional<MazePosition> getMazePosition(final String matrixLocation) {
         return mazePositionList.stream()
-                               .filter(mazePosition -> mazePosition.getMatrixLocation().equals(matrixLocation))
+                               .filter(mazePosition -> mazePosition.getMazeLocation().equals(matrixLocation))
                                .findFirst();
     }
 

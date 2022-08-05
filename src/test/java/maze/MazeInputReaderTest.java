@@ -17,9 +17,9 @@ class MazeInputReaderTest {
     void getMazeTest(final String filePath) {
         val mazeInputReader = new MazeInputReader(filePath);
         List<MazePosition> mazePositionList = mazeInputReader.getMaze();
-        val mazeMatrix = new MazeMatrix(mazePositionList);
+        val maze = new Maze(mazePositionList);
         Assertions.assertFalse(mazePositionList.isEmpty());
-        Assertions.assertNotNull(mazeMatrix.getStartingPosition());
-        Assertions.assertNotNull(mazeMatrix.getGoalPosition());
+        Assertions.assertNotNull(maze.getStartingPosition());
+        Assertions.assertNotNull(maze.getGoalPosition());
     }
 }

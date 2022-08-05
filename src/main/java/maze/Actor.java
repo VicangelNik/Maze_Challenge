@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
  * The actor is assumed that has not any prior knowledge of the map but is possible to remember.
  */
 public class Actor {
-    private final MazeMatrix mazeMatrix;
+    private final Maze maze;
     private final Random random = new Random();
     @Getter
     private MazePosition currentPosition;
@@ -21,9 +21,9 @@ public class Actor {
     @Getter
     private boolean isGoalFound = false;
 
-    public Actor(final MazeMatrix mazeMatrix) {
-        this.mazeMatrix = mazeMatrix;
-        currentPosition = mazeMatrix.getStartingPosition();
+    public Actor(final Maze maze) {
+        this.maze = maze;
+        currentPosition = maze.getStartingPosition();
     }
 
     public void move() {
@@ -67,11 +67,11 @@ public class Actor {
      */
     private List<MazePosition> inspectPossibleMoves() {
         List<MazePosition> possibleMoveList = new ArrayList<>();
-        int positionNumber = Integer.parseInt(currentPosition.getMatrixLocation());
-        Optional<MazePosition> eastPosition = mazeMatrix.getMazePosition(String.valueOf(positionNumber + 1));
-        Optional<MazePosition> westPosition = mazeMatrix.getMazePosition(String.valueOf(positionNumber - 1));
-        Optional<MazePosition> southPosition = mazeMatrix.getMazePosition(String.valueOf(positionNumber + 10));
-        Optional<MazePosition> northPosition = mazeMatrix.getMazePosition(String.valueOf(positionNumber - 10));
+        int positionNumber = Integer.parseInt(currentPosition.getMazeLocation());
+        Optional<MazePosition> eastPosition = maze.getMazePosition(String.valueOf(positionNumber + 1));
+        Optional<MazePosition> westPosition = maze.getMazePosition(String.valueOf(positionNumber - 1));
+        Optional<MazePosition> southPosition = maze.getMazePosition(String.valueOf(positionNumber + 10));
+        Optional<MazePosition> northPosition = maze.getMazePosition(String.valueOf(positionNumber - 10));
         eastPosition.ifPresent(possibleMoveList::add);
         westPosition.ifPresent(possibleMoveList::add);
         southPosition.ifPresent(possibleMoveList::add);

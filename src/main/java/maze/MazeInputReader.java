@@ -16,7 +16,7 @@ public class MazeInputReader {
     private int lineNumber = 0;
 
     public List<MazePosition> getMaze() {
-        List<MazePosition> matrix = new LinkedList<>();
+        List<MazePosition> maze = new LinkedList<>();
         try (InputStream inputStream = new FileInputStream(FILE_PATH);
              BufferedReader br = new BufferedReader(new InputStreamReader(inputStream))) {
             String line;
@@ -24,19 +24,19 @@ public class MazeInputReader {
                 lineNumber++;
                 for (int i = 0; i < line.length(); i++) {
                     String position = String.valueOf(lineNumber) + i;
-                    matrix.add(new MazePosition(line.charAt(i), position));
+                    maze.add(new MazePosition(line.charAt(i), position));
                 }
             }
-            checkMatrixSize(matrix);
-            return matrix;
+            checkMazeSize(maze);
+            return maze;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    private void checkMatrixSize(final List<MazePosition> matrix) {
-        if (matrix.size() < 2) {
-            throw new IllegalArgumentException("Invalid matrix size: " + matrix.size());
+    private void checkMazeSize(final List<MazePosition> maze) {
+        if (maze.size() < 2) {
+            throw new IllegalArgumentException("Invalid matrix size: " + maze.size());
         }
     }
 }

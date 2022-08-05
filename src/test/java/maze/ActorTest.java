@@ -23,7 +23,7 @@ class ActorTest {
     void inspectPossibleMovesTest(final String filePath, int expectedValue) throws NoSuchMethodException {
         val mazeInputReader = new MazeInputReader(filePath);
         List<MazePosition> mazePositionList = mazeInputReader.getMaze();
-        val mazeMatrix = new MazeMatrix(mazePositionList);
+        val mazeMatrix = new Maze(mazePositionList);
         val actor = new Actor(mazeMatrix);
         Method method = actor.getClass().getDeclaredMethod("inspectPossibleMoves");
         List<MazePosition> possibleMoveList = (List<MazePosition>) ReflectionUtils.invokeMethod(method, actor, null);
