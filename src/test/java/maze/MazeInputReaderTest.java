@@ -14,7 +14,7 @@ class MazeInputReaderTest {
 
     @ParameterizedTest
     @ValueSource(strings = {"src\\test\\resources\\mazeInput1.txt", "src\\test\\resources\\mazeInput2.txt"})
-    void getMaze(final String filePath) {
+    void getMazeTest(final String filePath) {
         val mazeInputReader = new MazeInputReader(filePath);
         List<MazePosition> mazePositionList = mazeInputReader.getMaze();
         val mazeMatrix = new MazeMatrix(mazePositionList);

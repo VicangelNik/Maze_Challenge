@@ -4,7 +4,8 @@
 .DS_Store
 .settings
 .springBeans
-*.orig
+*.orig.pb
+index.pb
 bin
 
 classes/
