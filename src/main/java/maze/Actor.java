@@ -1,6 +1,7 @@
 package maze;
 
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,12 +13,13 @@ import java.util.stream.Collectors;
  * This class indicates the actor whose goal is to find the end of our maze.
  * The actor is assumed that has not any prior knowledge of the map but is possible to remember.
  */
+@Slf4j
 public class Actor {
     private final Maze maze;
     private final Random random = new Random();
     @Getter
     private MazePosition currentPosition;
-    private List<MazePosition> passedPositionsList = new ArrayList<>();
+    private final List<MazePosition> passedPositionsList = new ArrayList<>();
     @Getter
     private boolean isGoalFound = false;
 
@@ -32,6 +34,11 @@ public class Actor {
         currentPosition.setAccessed(true);
         passedPositionsList.add(currentPosition);
         currentPosition.increaseNumberOfPasses();
+        // in case there is no way to reach the Goal position, the following if statement guarantees that the application will not be in endless.
+        // The value 10 is arbitrary
+        if (currentPosition.getNumberOfPasses() >= 10) {
+            throw new RuntimeException("Can not find my way");
+        }
         if (currentPosition.isGoal()) {
             isGoalFound = true;
         }
@@ -65,7 +72,7 @@ public class Actor {
      *
      * @return List<MazePosition>
      */
-    private List<MazePosition> inspectPossibleMoves() {
+    protected List<MazePosition> inspectPossibleMoves() {
         List<MazePosition> possibleMoveList = new ArrayList<>();
         int positionNumber = Integer.parseInt(currentPosition.getMazeLocation());
         Optional<MazePosition> eastPosition = maze.getMazePosition(String.valueOf(positionNumber + 1));
@@ -80,6 +87,6 @@ public class Actor {
     }
 
     public void printRoute() {
-        passedPositionsList.forEach(mazePosition -> System.out.println(mazePosition.toString()));
+        passedPositionsList.forEach(mazePosition -> log.info(mazePosition.toString()));
     }
 }

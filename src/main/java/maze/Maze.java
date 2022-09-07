@@ -1,17 +1,17 @@
 package maze;
 
-import lombok.RequiredArgsConstructor;
-
 import java.util.List;
 import java.util.Optional;
 
-/**
- * @author Nikiforos Xylogiannopoulos
- */
-@RequiredArgsConstructor
+
 public class Maze {
 
     private final List<MazePosition> mazePositionList;
+
+    public Maze(List<MazePosition> mazePositionList) {
+        this.mazePositionList = mazePositionList;
+        getGoalPosition();
+    }
 
     public Optional<MazePosition> getMazePosition(final String matrixLocation) {
         return mazePositionList.stream()
