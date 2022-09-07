@@ -16,7 +16,7 @@ class MazePositionTest {
     @DisplayName("test maze position creation")
     @ParameterizedTest
     @MethodSource(value = "provideMazePositionAttributes")
-    void mazePositionCreationTest(final char character, final String mazeLocation, final boolean isStart,
+    void mazePositionCreationTest(final char character, final int mazeLocation, final boolean isStart,
                                   final boolean isBlock, final boolean isGoal) {
         MazePosition mazePosition = new MazePosition(character, mazeLocation);
         Assertions.assertEquals(mazeLocation, mazePosition.getMazeLocation());
@@ -26,9 +26,9 @@ class MazePositionTest {
     }
 
     private static Stream<Arguments> provideMazePositionAttributes() {
-        return Stream.of(Arguments.of(MazeCharsEnum.UNDERSCORE.getValue(), "12", false, false, false),
-                         Arguments.of(MazeCharsEnum.BLOCK.getValue(), "12", false, true, false),
-                         Arguments.of(MazeCharsEnum.GOAL.getValue(), "12", false, false, true),
-                         Arguments.of(MazeCharsEnum.START.getValue(), "12", true, false, false));
+        return Stream.of(Arguments.of(MazeCharsEnum.UNDERSCORE.getValue(), 12, false, false, false),
+                         Arguments.of(MazeCharsEnum.BLOCK.getValue(), 12, false, true, false),
+                         Arguments.of(MazeCharsEnum.GOAL.getValue(), 12, false, false, true),
+                         Arguments.of(MazeCharsEnum.START.getValue(), 12, true, false, false));
     }
 }

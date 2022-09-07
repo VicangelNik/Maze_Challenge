@@ -23,7 +23,7 @@ public class MazeInputReader {
             while ((line = br.readLine()) != null) {
                 lineNumber++;
                 for (int i = 0; i < line.length(); i++) {
-                    String position = String.valueOf(lineNumber) + i;
+                    final int position = lineNumber * 10 + i;
                     maze.add(new MazePosition(line.charAt(i), position));
                 }
             }

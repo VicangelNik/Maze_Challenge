@@ -26,17 +26,16 @@ public class Actor {
     public Actor(final Maze maze) {
         this.maze = maze;
         currentPosition = maze.getStartingPosition();
+        actorStepsIntoPositionActions();
     }
 
     public void move() {
         List<MazePosition> possibleMoveList = inspectPossibleMoves();
         currentPosition = moveLogic(possibleMoveList);
-        currentPosition.setAccessed(true);
-        passedPositionsList.add(currentPosition);
-        currentPosition.increaseNumberOfPasses();
+        actorStepsIntoPositionActions();
         // in case there is no way to reach the Goal position, the following if statement guarantees that the application will not be in endless.
-        // The value 10 is arbitrary
-        if (currentPosition.getNumberOfPasses() >= 10) {
+        // The value 30 is arbitrary
+        if (currentPosition.getNumberOfPasses() >= 30) {
             throw new RuntimeException("Can not find my way");
         }
         if (currentPosition.isGoal()) {
@@ -74,16 +73,25 @@ public class Actor {
      */
     protected List<MazePosition> inspectPossibleMoves() {
         List<MazePosition> possibleMoveList = new ArrayList<>();
-        int positionNumber = Integer.parseInt(currentPosition.getMazeLocation());
-        Optional<MazePosition> eastPosition = maze.getMazePosition(String.valueOf(positionNumber + 1));
-        Optional<MazePosition> westPosition = maze.getMazePosition(String.valueOf(positionNumber - 1));
-        Optional<MazePosition> southPosition = maze.getMazePosition(String.valueOf(positionNumber + 10));
-        Optional<MazePosition> northPosition = maze.getMazePosition(String.valueOf(positionNumber - 10));
+        int positionNumber = currentPosition.getMazeLocation();
+        Optional<MazePosition> eastPosition = maze.getMazePosition(positionNumber + 1);
+        Optional<MazePosition> westPosition = maze.getMazePosition(positionNumber - 1);
+        Optional<MazePosition> southPosition = maze.getMazePosition(positionNumber + 10);
+        Optional<MazePosition> northPosition = maze.getMazePosition(positionNumber - 10);
         eastPosition.ifPresent(possibleMoveList::add);
         westPosition.ifPresent(possibleMoveList::add);
         southPosition.ifPresent(possibleMoveList::add);
         northPosition.ifPresent(possibleMoveList::add);
         return possibleMoveList;
+    }
+
+    /**
+     * Actions when Actor changes position
+     */
+    private void actorStepsIntoPositionActions() {
+        currentPosition.setAccessed(true);
+        passedPositionsList.add(currentPosition);
+        currentPosition.increaseNumberOfPasses();
     }
 
     public void printRoute() {

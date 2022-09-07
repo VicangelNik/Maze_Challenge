@@ -13,9 +13,9 @@ public class Maze {
         getGoalPosition();
     }
 
-    public Optional<MazePosition> getMazePosition(final String matrixLocation) {
+    public Optional<MazePosition> getMazePosition(final int matrixLocation) {
         return mazePositionList.stream()
-                               .filter(mazePosition -> mazePosition.getMazeLocation().equals(matrixLocation))
+                               .filter(mazePosition -> mazePosition.getMazeLocation() == matrixLocation)
                                .findFirst();
     }
 
@@ -32,5 +32,4 @@ public class Maze {
                                .findFirst()
                                .orElseThrow(() -> new IllegalArgumentException(" Goal position does not exist"));
     }
-
 }

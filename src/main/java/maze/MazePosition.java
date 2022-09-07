@@ -17,9 +17,9 @@ public class MazePosition {
     @Setter
     private boolean isAccessed = false;
     private int numberOfPasses = 0;
-    private String mazeLocation;
+    private int mazeLocation;
 
-    public MazePosition(final char character, final String mazeLocation) {
+    public MazePosition(final char character, final int mazeLocation) {
         this.mazeLocation = mazeLocation;
         String value = String.valueOf(character);
         if (MazeCharsEnum.UNDERSCORE.getValue().equalsIgnoreCase(value)) {
